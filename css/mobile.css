@@ -1,0 +1,266 @@
+/* =====================================================================
+   Mise en page mobile (écrans de moins de 1000 px de large)
+   Le jeu d'origine est conçu pour 1220 px : ici on empile le panneau
+   d'informations et le contenu, et on place les onglets en bas de
+   l'écran comme une application.
+   ===================================================================== */
+
+html, body {
+    -webkit-text-size-adjust: 100%;
+}
+
+@media (max-width: 1000px) {
+    body {
+        font-size: 14px;
+        /* place pour la barre d'onglets fixée en bas */
+        padding-bottom: calc(64px + env(safe-area-inset-bottom));
+        overflow-x: hidden;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .w3-margin {
+        margin: 8px !important;
+    }
+
+    /* --- En-tête --- */
+    .header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 8px;
+    }
+    .header img {
+        float: none;
+        width: 40px;
+        height: 40px;
+    }
+    .header h1 {
+        font-size: 22px;
+        margin: 0;
+    }
+
+    /* --- Colonnes empilées --- */
+    .row {
+        flex-direction: column;
+        width: 100% !important;
+    }
+    .column {
+        width: 100%;
+    }
+
+    /* --- Panneau d'informations : compact, sur deux colonnes --- */
+    #info {
+        width: 100% !important;
+        position: static !important;
+        padding: 10px 12px !important;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 12px;
+        align-items: start;
+    }
+    #info > * {
+        grid-column: 1 / -1;
+    }
+    #info .sidebar-element {
+        margin-bottom: 8px;
+    }
+    #info ul {
+        margin: 4px 0 8px;
+    }
+    #info #automation {
+        margin-left: 0 !important;
+        margin-bottom: 8px;
+    }
+    #info #pauseButton {
+        min-height: 44px;
+        width: 100%;
+    }
+    #info #automation {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+    #automation > span {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    #automation br {
+        display: none;
+    }
+    #automation input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        vertical-align: middle;
+        margin: 4px 0 4px 6px;
+    }
+    #automation .inline {
+        vertical-align: middle;
+    }
+    #quickTaskDisplay {
+        display: block;
+    }
+    #quickTaskDisplay .progress-bar {
+        width: 100% !important;
+        display: block;
+    }
+    #timeWarpingButton {
+        min-height: 40px;
+    }
+
+    /* --- Barre d'onglets fixée en bas de l'écran --- */
+    #tabBar {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 50;
+        width: 100% !important;
+        height: auto !important;
+        margin: 0 !important;
+        display: flex;
+        padding-bottom: env(safe-area-inset-bottom);
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.35);
+    }
+    #tabBar .tabButton {
+        flex: 1 1 0;
+        width: auto;
+        min-width: 0;
+        height: 56px;
+        float: none !important;
+        padding: 0 2px !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: clamp(10px, 3vw, 13px);
+        white-space: normal;
+        overflow: hidden;
+        line-height: 1.15;
+    }
+    /* les onglets masqués (pas encore débloqués) restent masqués */
+    #tabBar .tabButton.hidden {
+        display: none !important;
+    }
+
+    /* --- Panneau principal --- */
+    #mainPanel {
+        width: 100% !important;
+        float: none !important;
+        margin: 8px 0 0 0 !important;
+        padding: 6px !important;
+    }
+
+    /* Les tableaux défilent horizontalement si besoin */
+    .tab {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .w3-table td, .w3-table th {
+        padding: 6px 5px !important;
+        font-size: 13px;
+    }
+    .w3-table th.category {
+        width: auto !important;
+        white-space: nowrap;
+    }
+
+    .progress-bar {
+        width: 150px;
+    }
+    .progress-fill {
+        height: 36px;
+    }
+    .progress-text {
+        font-size: 12px;
+        line-height: 1.15;
+        padding: 3px 5px;
+        display: flex;
+        align-items: center;
+    }
+
+    .item-button {
+        width: 150px;
+        min-height: 44px;
+        height: auto;
+        font-size: 12px;
+        padding: 4px;
+    }
+    .activeRing {
+        width: 32px !important;
+        height: 32px !important;
+        padding: 5px !important;
+    }
+    .activeRing .active {
+        width: 20px !important;
+        height: 20px !important;
+    }
+
+    .skipSkill input {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* Infobulles : bulle fixe au-dessus de la barre d'onglets */
+    .tooltip .tooltipText {
+        position: fixed;
+        top: auto;
+        left: 10px;
+        right: 10px;
+        bottom: calc(72px + env(safe-area-inset-bottom));
+        width: auto;
+        padding: 12px;
+        font-size: 14px;
+        z-index: 60;
+        transition: opacity 0.2s;
+        pointer-events: none;
+    }
+    .tooltip:hover .tooltipText,
+    .tooltip.showTip .tooltipText {
+        visibility: visible;
+        opacity: 0.92;
+    }
+
+    /* Onglets texte (Amulette, Options) */
+    #rebirth ul, #settings ul {
+        padding-left: 18px;
+    }
+    #settings h2 {
+        font-size: 18px;
+        margin-top: 16px;
+    }
+    #settings .button {
+        min-height: 40px;
+        margin: 2px 2px 2px 0;
+    }
+    #importExportBox {
+        width: 100% !important;
+        height: 40px !important;
+        font-size: 14px;
+    }
+}
+
+/* Écrans tactiles : le « survol » collant est désactivé, on utilise
+   la classe showTip ajoutée par js/mobile.js */
+@media (hover: none) {
+    .tooltip:hover .tooltipText {
+        visibility: hidden;
+        opacity: 0;
+    }
+    .tooltip.showTip .tooltipText {
+        visibility: visible;
+        opacity: 0.92;
+    }
+}
+
+/* Très petits écrans : on masque la colonne « XP restante » */
+@media (max-width: 420px) {
+    .xpLeft, .xpLeftHead {
+        display: none;
+    }
+    .progress-bar {
+        width: 130px;
+    }
+    .item-button {
+        width: 130px;
+    }
+}
